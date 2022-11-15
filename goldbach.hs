@@ -14,13 +14,20 @@ forLoop a b False = do
     let y = isPrime b
     forLoop (a-1) (b+1) (x==y)
 
-goldbach :: Integer -> Bool -> Bool
-goldbach x False = False
+goldbach :: Integer -> Bool -> Maybe Bool
+goldbach x False = Just False
 goldbach x True = do
     let b = forLoop (x-2) 2 False
     goldbach (x+2) b
 
+comb :: (a -> Maybe b) -> Maybe a -> Maybe b
+comb _ Nothing = Nothing
+comb f (Just x) = f x
+
+halt :: (Maybe Bool -> Maybe Bool) -> Maybe Bool
+halt f = Just True
+
 main :: IO ()
 main = do
-    let b = goldbach 4 True
+    let b = halt (comb (goldbach 4))
     print b
