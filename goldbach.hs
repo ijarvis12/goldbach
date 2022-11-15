@@ -3,7 +3,7 @@
 isPrime :: Integer -> Bool
 isPrime 1 = False
 isPrime 2 = True
-isPrime n | (length [x | x <- [2 .. (ceiling (sqrt (fromIntegral n)))], mod n x == 0]) > 0 = False
+isPrime n | (length [x | x <- [2 .. (toInteger (ceiling (sqrt (fromIntegral n))))], mod n x == 0]) > 0 = False
           | otherwise = True
 
 forLoop :: Integer -> Integer -> Bool -> Bool
