@@ -29,9 +29,9 @@ goldbach x True = do
     goldbach (x+2) b
 
 -- lets function f execute until no output/input
-comb :: (a -> Maybe b) -> Maybe a -> Maybe b
-comb _ Nothing = Nothing
-comb f (Just x) = f x
+wrapM :: (a -> Maybe b) -> Maybe a -> Maybe b
+wrapM _ Nothing = Nothing
+wrapM f (Just x) = f x
 
 -- check function f halts
 halts :: (Maybe Bool -> Maybe Bool) -> Maybe Bool
@@ -40,6 +40,6 @@ halts f = Just True
 -- main function
 main :: IO ()
 main = do
-    let b = halts (comb (goldbach 4))
+    let b = halts (wrapM (goldbach 4))
     print "Does the Goldbach Conjecture halt?"
     print b
