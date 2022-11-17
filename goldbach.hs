@@ -21,7 +21,7 @@ forLoop a b False = do
     let y = isPrime b endb False
     forLoop (a-1) (b+1) (x==y)
 
--- check the goldbach conjecture for all even integers
+-- the goldbach conjecture for all even integers (to a stopping point?)
 goldbach :: Integer -> Bool -> Integer
 goldbach x False = x-2
 goldbach x True = do
