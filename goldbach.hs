@@ -22,23 +22,14 @@ forLoop a b False = do
     forLoop (a-1) (b+1) (x==y)
 
 -- check the goldbach conjecture for all even integers
-goldbach :: Integer -> Bool -> Maybe Bool
-goldbach x False = Just False
+goldbach :: Integer -> Bool -> Integer
+goldbach x False = x-2
 goldbach x True = do
     let b = forLoop (x-2) 2 False
     goldbach (x+2) b
 
--- lets function f execute until no output/input
-comb :: (a -> Maybe b) -> Maybe a -> Maybe b
-comb _ Nothing = Nothing
-comb f (Just x) = f x
-
--- check function f halts
-halt :: (Maybe Bool -> Maybe Bool) -> Maybe Bool
-halt f = Just True
-
 -- main function
 main :: IO ()
 main = do
-    let b = halt (comb (goldbach 4))
+    let b = goldbach 4 True
     print b
