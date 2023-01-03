@@ -31,5 +31,5 @@ goldbach x True = do
 -- main function
 main :: IO ()
 main = do
-    let b = goldbach 4 True
+    let b = goldbach 100 True
     print b
