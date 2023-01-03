@@ -15,11 +15,11 @@ forLoop :: Integer -> Integer -> Bool -> Bool
 forLoop 1 b False = False
 forLoop a b True = True
 forLoop a b False = do
-    let enda = (toInteger (ceiling (sqrt (fromIntegral a))) + 1)
-    let endb = (toInteger (ceiling (sqrt (fromIntegral b))) + 1)
+    let enda = toInteger (ceiling (sqrt (fromIntegral a)))
+    let endb = toInteger (ceiling (sqrt (fromIntegral b)))
     let x = isPrime a enda False
     let y = isPrime b endb False
-    forLoop (a-1) (b+1) (x==y)
+    forLoop (a-1) (b+1) (x && y)
 
 -- the goldbach conjecture for all even integers (to a stopping point?)
 goldbach :: Integer -> Bool -> Maybe Integer
