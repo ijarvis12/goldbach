@@ -6,14 +6,14 @@ check x n = (mod x n) == 0
 
 -- check if x is prime
 isPrime :: Integer -> Integer -> Bool -> Bool
-isPrime x 1 False = True
+isPrime _ 1 False = True
 isPrime x end False = isPrime x (end-1) (check x end)
-isPrime x end True = False
+isPrime _ _ True = False
 
 -- check for an x of goldbach, all addtions to get x there is a prime pair
 forLoop :: Integer -> Integer -> Bool -> Bool
-forLoop 1 b False = False
-forLoop a b True = True
+forLoop 1 _ False = False
+forLoop _ _ True = True
 forLoop a b False = do
     let enda = toInteger (ceiling (sqrt (fromIntegral a)))
     let endb = toInteger (ceiling (sqrt (fromIntegral b)))
