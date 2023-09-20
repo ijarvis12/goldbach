@@ -1,35 +1,19 @@
 #!/usr/bin/env runhaskell
 
--- check for divisability
-check :: Integer -> Integer -> Bool
-check x n = (mod x n) == 0
+isPrime :: Integer -> Bool
+isPrime n = not (elem True (map (==0) (map (mod n) [2..(ceiling (sqrt (fromInteger n)))] ) ) )
 
--- check if x is prime
-isPrime :: Integer -> Integer -> Bool -> Bool
-isPrime _ 1 False = True
-isPrime x end False = isPrime x (end-1) (check x end)
-isPrime _ _ True = False
-
--- check for an x of goldbach, all addtions to get x there is a prime pair
-forLoop :: Integer -> Integer -> Bool -> Bool
-forLoop 1 _ False = False
-forLoop _ _ True = True
-forLoop a b False = do
-    let enda = toInteger (ceiling (sqrt (fromIntegral a)))
-    let endb = toInteger (ceiling (sqrt (fromIntegral b)))
-    let x = isPrime a enda False
-    let y = isPrime b endb False
-    forLoop (a-1) (b+1) (x && y)
+-- check for an x of goldbach, all addtions to get x there is a prime pair, if not return the number
+forLoop :: [Integer] -> Integer -> Bool -> Bool -> Maybe Integer
+forLoop (a:as) b False True = Just (a+b)
+forLoop (a:as) _ True _ = forLoop as 2 False False
+forLoop (a:as) b False False = forLoop ([a-1]++as) (b+1) ((isPrime a) && (isPrime b)) (b>a)
 
 -- the goldbach conjecture for all even integers (to a stopping point?)
-goldbach :: Integer -> Bool -> Integer
-goldbach x False = (x-2)
-goldbach x True = do
-    let b = forLoop (x-2) 2 False
-    goldbach (x+2) b
+goldbach :: Maybe Integer -> Integer
+goldbach Nothing = goldbach (forLoop [4,6..] 2 False False)
+goldbach (Just x) = x
 
 -- main function
 main :: IO ()
-main = do
-    let b = goldbach 100 True
-    print b
+main = print (goldbach Nothing)
