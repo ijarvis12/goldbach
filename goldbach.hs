@@ -11,9 +11,9 @@ forLoop (a:as) b True _ = do {print [(a+b),(a+1),(b-1)]; forLoop as 2 False Fals
 forLoop (a:as) b False False = forLoop ([a-1]++as) (b+1) ((isPrime a) && (isPrime b)) (b>a)
 
 -- the goldbach conjecture for all even integers (to a stopping point?)
-goldbach :: IO ()
-goldbach = forLoop [(4*10^12),(4*10^12+2)..] 2 False False
+goldbach :: Integer -> IO ()
+goldbach g = forLoop [g,(g+2)..] 2 False False
 
 -- main function
 main :: IO ()
-main = goldbach
+main = goldbach (4*10^12)
