@@ -1,4 +1,4 @@
-#!/usr/bin/env guile -s
+#!/home/ijarvis12/.guix-profile/bin/guile -s
 !#
 
 ;; check if n is prime
@@ -21,16 +21,16 @@
 (while '(#t) (set! g (+ g 2))
                 (set! a (- g 2))
                 (set! b 2)
-                (if '(  (while (< b a) (if (and (isNotPrime a 2) (isNotPrime b 2) )
+                (if (not        (while (< b a) (if (and (isNotPrime a 2) (isNotPrime b 2) )
                                         (continue)
                                         (break #t)
                                         )
                                         (set! a (- a 1))
                                         (set! b (+ b 1))
-                        )
+                                )
                     )
-                    (continue)
                     (break)
+                    (continue)
                 )
 )
 
